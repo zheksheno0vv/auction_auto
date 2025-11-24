@@ -4,9 +4,11 @@ services:
   fast_api:
     build: .
     command:
-      - bash -c "uvicorn main:auto_app -host 0.0.0.0 --port 8000"
+      - bash -c "uvicorn main:app -host 0.0.0.0 --port 8000"
     volumes:
       - .:auction_app
+      - static_volume:/app/static
+      - media_volume:/app/media
     ports:
       - "8000:8000"
     depends_on:
@@ -22,6 +24,20 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+  nginx:
+    build: ./nginx
+    ports:
+      - "80:80"
+    volumes:
+      - static_volume:/app/static
+      - media_volume:/app/media
+    depends_on:
+      - fast_api
 
 volumes:
   postgres_data:
+
+
+
+
+

@@ -33,21 +33,21 @@ async def get_db():
         db.close()
 
 
-auto_app = FastAPI(title='Подержанные автомобили из США')
+app = FastAPI(title='Подержанные автомобили из США')
 
 
 
-auto_app.add_middleware(SessionMiddleware, secret_key="SECRET_KEY")
+app.add_middleware(SessionMiddleware, secret_key="SECRET_KEY")
 
-setup_admin(auto_app)
+setup_admin(app)
 
 
-auto_app.include_router(auth.auth_router)
-auto_app.include_router(users.user_router)
-auto_app.include_router(car.cars_router)
-auto_app.include_router(feedback.feed_router)
-auto_app.include_router(bid.bids_router)
-auto_app.include_router(auction.auction_router)
+app.include_router(auth.auth_router)
+app.include_router(users.user_router)
+app.include_router(car.cars_router)
+app.include_router(feedback.feed_router)
+app.include_router(bid.bids_router)
+app.include_router(auction.auction_router)
 
 
 
